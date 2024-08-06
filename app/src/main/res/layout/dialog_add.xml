@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/MauChuoi"
+    android:layout_height="wrap_content"
+    android:layout_margin="20sp"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm sản phẩm"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        ></TextView>
+    <LinearLayout
+        android:padding="20sp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Tên sản phẩm"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/edtTenSP"
+            android:textColorHint="#6A6464"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:hint="Ví dụ nho, táo..."
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Loại sản phẩm"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/edtLoaitSP"
+            android:layout_width="300dp"
+            android:textColor="@color/black"
+            android:textColorHint="#6A6464"
+            android:hint="1: Trái cây - 2:Rau xanh"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Giá sản phẩm"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtGiaSP"
+            android:layout_width="300dp"
+            android:textColor="@color/black"
+            android:textColorHint="#6A6464"
+            android:hint="vd: 10.000 vnd"
+            android:inputType="number"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"/>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_margin="20sp"
+            android:orientation="horizontal"
+            android:layout_width="300dp"
+            android:layout_height="100dp">
+            <Button
+                android:backgroundTint="@color/black"
+                android:layout_margin="20sp"
+                android:id="@+id/addSP"
+                android:layout_width="130dp"
+                android:layout_height="60dp"
+                android:text="Thêm"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/Cancle"
+                android:layout_width="130dp"
+                android:layout_height="60dp"
+                android:layout_margin="20sp"
+                android:backgroundTint="@color/black"
+                android:text="Hủy"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
