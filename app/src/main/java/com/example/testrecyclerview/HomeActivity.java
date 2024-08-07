@@ -1,15 +1,13 @@
 package com.example.testrecyclerview;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,22 +23,19 @@ import models.SanPham;
 
 public class HomeActivity extends AppCompatActivity {
     RecyclerView recyclerViewSanPham;
-    EditText edtSearch;
     ArrayList<SanPham> list;
-    ArrayList<SanPham> filteredList;
-    SanPhamDao sanPhamDao;
-    SanPhamAdapter sanPhamAdapter;
-
-    @SuppressLint("MissingInflatedId")
+    SanPhamDao SanPhamDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
 
-        // Initialize views
+
+        //thiet ke giao dien
         recyclerViewSanPham = findViewById(R.id.RecyclerViewSanPham);
-        FloatingActionButton floatingAdd = findViewById(R.id.floatingAdd);
-        edtSearch = findViewById(R.id.edtSearch); // Sửa lại id cho EditText
+        FloatingActionButton floatingAdd=findViewById(R.id.floatingAdd);
+
 
         floatingAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,65 +44,38 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // Data
-        sanPhamDao = new SanPhamDao(this);
+        //data
+        SanPhamDao = new SanPhamDao(this);
 
-        // Initialize data and adapter
+
+        //adapter
         UpdateData();
 
-        // Search functionality
-        edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                filterData(charSequence.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {}
-        });
     }
-
-    private void UpdateData() {
-        list = sanPhamDao.getDSloaiSach();
-        filteredList = new ArrayList<>(list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+    private  void UpdateData()
+    {
+        list= SanPhamDao.getDSloaiSach();
+        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
         recyclerViewSanPham.setLayoutManager(linearLayoutManager);
-        sanPhamAdapter = new SanPhamAdapter(this, filteredList);
+        SanPhamAdapter sanPhamAdapter =new SanPhamAdapter(this,list, SanPhamDao);
         recyclerViewSanPham.setAdapter(sanPhamAdapter);
     }
-
-    private void filterData(String query) {
-        filteredList.clear();
-        if (query.isEmpty()) {
-            filteredList.addAll(list);
-        } else {
-            for (SanPham sanPham : list) {
-                if (sanPham.getTen().toLowerCase().contains(query.toLowerCase())) {
-                    filteredList.add(sanPham);
-                }
-            }
-        }
-        sanPhamAdapter.notifyDataSetChanged();
-    }
-
-    private void showDialogThem() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_add, null);
+    private  void showDialogThem()
+    {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        LayoutInflater inflater=getLayoutInflater();
+        View view=inflater.inflate(R.layout.dialog_add,null);
         builder.setView(view);
 
-        AlertDialog alertDialog = builder.create();
+        AlertDialog alertDialog=builder.create();
         alertDialog.setCancelable(false);
         alertDialog.show();
 
-        EditText tenSanPham = view.findViewById(R.id.edtTenSP);
-        EditText loaiSanPham = view.findViewById(R.id.edtLoaitSP);
-        EditText giaSanPham = view.findViewById(R.id.edtGiaSP);
-        Button btnAdd = view.findViewById(R.id.addSP);
-        Button btnCancle = view.findViewById(R.id.Cancle);
+        EditText tenSanPham=view.findViewById(R.id.edtTenSP);
+        EditText loaiSanPham=view.findViewById(R.id.edtLoaitSP);
+        EditText giaSanPham=view.findViewById(R.id.edtGiaSP);
+        Button btnAdd=view.findViewById(R.id.addSP);
+        Button btnCancle=view.findViewById(R.id.Cancle);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
                 String giaSP = giaSanPham.getText().toString().trim();
 
                 // Kiểm tra trường nhập liệu có bị trống không
-                if (tenSP.isEmpty() || loaiSP.isEmpty() || giaSP.isEmpty()) {
+                if (tenSP.isEmpty() || loaiSP.isEmpty()||giaSP.isEmpty()) {
                     Toast.makeText(HomeActivity.this, "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -130,7 +98,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
 
                 // Thực hiện hành động thêm sản phẩm
-                boolean check = sanPhamDao.themSanPham(tenSP, loaiSP, giaSP);
+                boolean check = SanPhamDao.themSanPham(tenSP, loaiSP,giaSP);
                 if (check) {
                     Toast.makeText(HomeActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                     UpdateData(); // Cập nhật dữ liệu nếu cần
@@ -147,5 +115,6 @@ public class HomeActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
+
     }
 }

@@ -57,4 +57,16 @@ public class SanPhamDao {
         }
         return list;
     }
+
+    public  boolean suaSanPham(SanPham sanPham)
+    {
+        SQLiteDatabase sqLiteDatabase =dbHepler.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ten",sanPham.getTen());
+        contentValues.put("tenloai",sanPham.getLoai());
+        contentValues.put("gia",sanPham.getGia());
+
+        int check= sqLiteDatabase.update("SANPHAM",contentValues,"masanpham = ?", new String[]{String.valueOf(sanPham.getMaloai())});
+        return  check!=0;
+    }
 }

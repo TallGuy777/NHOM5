@@ -43,56 +43,39 @@
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Giá Sản phẩm"
+            android:text="Loại"
             android:padding="10dp"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/edtLoai"
+            android:layout_width="300dp"
+            android:textColor="@color/black"
+            android:textColorHint="#6A6464"
+            android:hint="1:Trái cây 2: Rau"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"/>
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Giá Sản phẩm"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/edtGiaSP"
-            android:textColorHint="#6A6464"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
             android:layout_width="300dp"
-            android:hint="Ví dụ nho, táo..."
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"/>
-
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="Số lượng"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
-        <EditText
-            android:id="@+id/edtSoLuong"
-            android:textColorHint="#6A6464"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:layout_width="300dp"
-            android:hint="Ví dụ nho, táo..."
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"/>
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="Xuất Xứ"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
-
-        <EditText
-            android:id="@+id/edtXuatXu"
-            android:layout_width="300dp"
-            android:textColor="@color/black"
-            android:textColorHint="#6A6464"
-            android:hint="1: Việt Nam - 2: Mỹ"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/border"/>
+            android:background="@drawable/border"
+            android:hint="vd: 15.000"
+            android:textColor="@color/black"
+            android:textColorHint="#6A6464" />
 
         <LinearLayout
             android:gravity="center"
