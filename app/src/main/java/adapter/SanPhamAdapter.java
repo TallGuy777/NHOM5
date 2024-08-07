@@ -52,7 +52,7 @@ public class SanPhamAdapter extends  RecyclerView.Adapter<SanPhamAdapter.ViewHol
         list = newList;
         notifyDataSetChanged();
     }
-
+//Nhut lam ne
     public  class  ViewHolder extends RecyclerView.ViewHolder
     {
         TextView tvIDSanPham,tvTenSanPham,tvTenLoaiSanPham,tvGiaSanPham;
