@@ -44,6 +44,7 @@ public class SanPhamDao {
         long check=sqLiteDatabase.insert("SANPHAM",null,contentValues);
         return check!=-1;
     }
+
     public ArrayList<SanPham> timKiemSanPham(String tenSanPham) {
         ArrayList<SanPham> list = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = dbHepler.getReadableDatabase();
