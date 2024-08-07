@@ -1,8 +1,10 @@
 package adapter;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,19 +60,31 @@ public class SanPhamAdapter extends  RecyclerView.Adapter<SanPhamAdapter.ViewHol
         holder.ibDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int check = sanPhamDao.xoaSanPham(list.get(holder.getAdapterPosition()).getMaloai());
-                switch (check) {
-                    case -1:
-                        Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 0:
-                        Toast.makeText(context, "Sản phẩm không tồn tại", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        Toast.makeText(context, "Xóa sản phẩm thành công", Toast.LENGTH_SHORT).show();
-                        loadData();
-                        break;
-                }
+                AlertDialog.Builder builder= new AlertDialog.Builder(context);
+                builder.setTitle("Thông báo");
+                builder.setMessage("Bạn có muốn xóa "+list.get(holder.getAdapterPosition()).getTen()+" Không ?");
+                builder.setIcon(R.drawable.warning);
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        int check = sanPhamDao.xoaSanPham(list.get(holder.getAdapterPosition()).getMaloai());
+                        switch (check) {
+                            case -1:
+                                Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 0:
+                                Toast.makeText(context, "Sản phẩm không tồn tại", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 1:
+                                Toast.makeText(context, "Xóa sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                loadData();
+                                break;
+                        }
+                    }
+                });
+                builder.setNegativeButton("Không",null);
+                AlertDialog alertDialog= builder.create();
+                alertDialog.show();
             }
         });
     }
