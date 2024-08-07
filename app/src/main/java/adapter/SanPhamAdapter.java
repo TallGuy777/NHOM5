@@ -1,7 +1,6 @@
 package adapter;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testrecyclerview.R;
@@ -25,22 +24,25 @@ import java.util.ArrayList;
 import dao.SanPhamDao;
 import models.SanPham;
 
-public class SanPhamAdapter extends  RecyclerView.Adapter<SanPhamAdapter.ViewHolder> {
+public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<SanPham> list;
-    private  SanPhamDao sanPhamDao;
-    public SanPhamAdapter(Context context, ArrayList<SanPham> list, SanPhamDao sanPhamDao) {
+    private SanPhamDao sanPhamDao;
+    private boolean isCaseOne;  // Thêm biến trạng thái
+
+    public SanPhamAdapter(Context context, ArrayList<SanPham> list, SanPhamDao sanPhamDao, boolean isCaseOne) {
         this.context = context;
         this.list = list;
-        this.sanPhamDao=sanPhamDao;
+        this.sanPhamDao = sanPhamDao;
+        this.isCaseOne = isCaseOne;  // Khởi tạo biến trạng thái
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater=((Activity)context).getLayoutInflater();
-        View view=inflater.inflate(R.layout.item_product,parent,false);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_product, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,18 +53,28 @@ public class SanPhamAdapter extends  RecyclerView.Adapter<SanPhamAdapter.ViewHol
         holder.tvTenLoaiSanPham.setText("Loại: " + list.get(position).getLoai());
         holder.tvGiaSanPham.setText("Giá: " + list.get(position).getGia() + " VND");
 
+        // Điều chỉnh visibility của các nút dựa trên biến trạng thái
+        if (isCaseOne) {
+            holder.linerUser.setVisibility(View.VISIBLE);
+            holder.linerAdmin.setVisibility(View.GONE);
+        } else {
+            holder.linerUser.setVisibility(View.GONE);
+            holder.linerAdmin.setVisibility(View.VISIBLE);
+        }
+
         holder.ibEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialogUpdate(list.get(holder.getAdapterPosition()));
             }
         });
+
         holder.ibDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder= new AlertDialog.Builder(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Thông báo");
-                builder.setMessage("Bạn có muốn xóa "+list.get(holder.getAdapterPosition()).getTen()+" Không ?");
+                builder.setMessage("Bạn có muốn xóa " + list.get(holder.getAdapterPosition()).getTen() + " Không ?");
                 builder.setIcon(R.drawable.warning);
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
@@ -82,14 +94,12 @@ public class SanPhamAdapter extends  RecyclerView.Adapter<SanPhamAdapter.ViewHol
                         }
                     }
                 });
-                builder.setNegativeButton("Không",null);
-                AlertDialog alertDialog= builder.create();
+                builder.setNegativeButton("Không", null);
+                AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
         });
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -101,58 +111,58 @@ public class SanPhamAdapter extends  RecyclerView.Adapter<SanPhamAdapter.ViewHol
         notifyDataSetChanged();
     }
 
-    public  class  ViewHolder extends RecyclerView.ViewHolder
-    {
-        TextView tvIDSanPham,tvTenSanPham,tvTenLoaiSanPham,tvGiaSanPham;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvIDSanPham, tvTenSanPham, tvTenLoaiSanPham, tvGiaSanPham;
         ImageButton ibEdit, ibDelete;
+        LinearLayout linerAdmin,linerUser;
 
-        public ViewHolder(@NonNull View itemView)
-        {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvIDSanPham=itemView.findViewById(R.id.tvIDSanPham);
-            tvTenSanPham=itemView.findViewById(R.id.tvTenSanPham);
-            tvTenLoaiSanPham=itemView.findViewById(R.id.tvLoai);
-            tvGiaSanPham=itemView.findViewById(R.id.tvGiaSP);
-            ibEdit=itemView.findViewById(R.id.ibEdit);
-            ibDelete=itemView.findViewById(R.id.ibDelete);
+            tvIDSanPham = itemView.findViewById(R.id.tvIDSanPham);
+            tvTenSanPham = itemView.findViewById(R.id.tvTenSanPham);
+            tvTenLoaiSanPham = itemView.findViewById(R.id.tvLoai);
+            tvGiaSanPham = itemView.findViewById(R.id.tvGiaSP);
+            ibEdit = itemView.findViewById(R.id.ibEdit);
+            ibDelete = itemView.findViewById(R.id.ibDelete);
+            linerAdmin=itemView.findViewById(R.id.linerAdmin);
+            linerUser=itemView.findViewById(R.id.linerUser);
         }
     }
-    private void showDialogUpdate(SanPham sanPham)
-    {
-        AlertDialog.Builder builder=new AlertDialog.Builder(context);
-        LayoutInflater inflater=((Activity)context).getLayoutInflater();
-        View view= inflater.inflate(R.layout.dialog_edit,null);
+
+    private void showDialogUpdate(SanPham sanPham) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_edit, null);
         builder.setView(view);
-        AlertDialog alertDialog=builder.create();
+        AlertDialog alertDialog = builder.create();
         alertDialog.show();
         alertDialog.setCancelable(false);
 
-        EditText edtTenSP=view.findViewById(R.id.edtTenSP);
-        EditText edtLoai=view.findViewById(R.id.edtLoai);
-        EditText edtGiaSP=view.findViewById(R.id.edtGiaSP);
-        Button btnEdit=view.findViewById(R.id.btnEdit);
-        Button btnHuy=view.findViewById(R.id.btnHuy);
+        EditText edtTenSP = view.findViewById(R.id.edtTenSP);
+        EditText edtLoai = view.findViewById(R.id.edtLoai);
+        EditText edtGiaSP = view.findViewById(R.id.edtGiaSP);
+        Button btnEdit = view.findViewById(R.id.btnEdit);
+        Button btnHuy = view.findViewById(R.id.btnHuy);
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String tenSP=edtTenSP.getText().toString();
-                String loaiSP=edtLoai.getText().toString();
-                String giaSP=edtGiaSP.getText().toString();
-                SanPham sanphamUpdate= new SanPham(sanPham.getMaloai(),tenSP,loaiSP,giaSP);
-                boolean check= sanPhamDao.suaSanPham(sanphamUpdate);
-                if(check)
-                {
+                String tenSP = edtTenSP.getText().toString();
+                String loaiSP = edtLoai.getText().toString();
+                String giaSP = edtGiaSP.getText().toString();
+                SanPham sanphamUpdate = new SanPham(sanPham.getMaloai(), tenSP, loaiSP, giaSP);
+                boolean check = sanPhamDao.suaSanPham(sanphamUpdate);
+                if (check) {
                     Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                     loadData();
                     alertDialog.dismiss();
-                }else
-                {
+                } else {
                     Toast.makeText(context, "Cập nhật không công", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,10 +170,10 @@ public class SanPhamAdapter extends  RecyclerView.Adapter<SanPhamAdapter.ViewHol
             }
         });
     }
-    private void loadData()
-    {
+
+    private void loadData() {
         list.clear();
-        list=sanPhamDao.getDSloaiSach();
+        list = sanPhamDao.getDSloaiSach();
         notifyDataSetChanged();
     }
 }

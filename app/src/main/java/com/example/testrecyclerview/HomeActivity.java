@@ -1,6 +1,7 @@
 package com.example.testrecyclerview;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<SanPham> filteredList;
     SanPhamDao sanPhamDao;
     SanPhamAdapter sanPhamAdapter;
+    FloatingActionButton floatingAdd;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -39,8 +41,15 @@ public class HomeActivity extends AppCompatActivity {
 
         // Initialize views
         recyclerViewSanPham = findViewById(R.id.RecyclerViewSanPham);
-        FloatingActionButton floatingAdd = findViewById(R.id.floatingAdd);
-        edtSearch = findViewById(R.id.edtSearch); // Sửa lại id cho EditText
+        floatingAdd = findViewById(R.id.floatingAdd);
+        edtSearch = findViewById(R.id.edtSearch);
+
+        // Get role and update visibility of floatingAdd
+        SharedPreferences sharedPreferences = getSharedPreferences("dataUser", MODE_PRIVATE);
+        int role = sharedPreferences.getInt("role", -1);
+        if (role == 1) {
+            floatingAdd.setVisibility(View.GONE);
+        }
 
         floatingAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +84,13 @@ public class HomeActivity extends AppCompatActivity {
         filteredList = new ArrayList<>(list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerViewSanPham.setLayoutManager(linearLayoutManager);
-        sanPhamAdapter = new SanPhamAdapter(this, filteredList,sanPhamDao);
+
+        // Get role and create adapter with appropriate visibility
+        SharedPreferences sharedPreferences = getSharedPreferences("dataUser", MODE_PRIVATE);
+        int role = sharedPreferences.getInt("role", -1);
+        boolean isCaseOne = (role == 1);
+
+        sanPhamAdapter = new SanPhamAdapter(this, filteredList, sanPhamDao, isCaseOne);
         recyclerViewSanPham.setAdapter(sanPhamAdapter);
     }
 
@@ -149,3 +164,4 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 }
+
