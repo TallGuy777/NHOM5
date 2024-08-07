@@ -48,6 +48,10 @@ public class SanPhamAdapter extends  RecyclerView.Adapter<SanPhamAdapter.ViewHol
     public int getItemCount() {
         return list.size();
     }
+    public void updateData(ArrayList<SanPham> newList) {
+        list = newList;
+        notifyDataSetChanged();
+    }
 
     public  class  ViewHolder extends RecyclerView.ViewHolder
     {
