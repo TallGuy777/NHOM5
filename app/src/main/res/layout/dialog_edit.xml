@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/MauChuoi"
+    android:layout_height="wrap_content"
+    android:layout_margin="20sp"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sửa sản phẩm"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        ></TextView>
+    <LinearLayout
+        android:padding="20sp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Tên sản phẩm"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/edtTenSP"
+            android:textColorHint="#6A6464"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:hint="Ví dụ nho, táo..."
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Giá Sản phẩm"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/edtGiaSP"
+            android:textColorHint="#6A6464"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:hint="Ví dụ nho, táo..."
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Số lượng"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/edtSoLuong"
+            android:textColorHint="#6A6464"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:hint="Ví dụ nho, táo..."
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"/>
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Xuất Xứ"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/edtXuatXu"
+            android:layout_width="300dp"
+            android:textColor="@color/black"
+            android:textColorHint="#6A6464"
+            android:hint="1: Việt Nam - 2: Mỹ"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"/>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_margin="20sp"
+            android:orientation="horizontal"
+            android:layout_width="300dp"
+            android:layout_height="100dp">
+            <Button
+                android:backgroundTint="@color/black"
+                android:layout_margin="20sp"
+                android:id="@+id/btnEdit"
+                android:layout_width="130dp"
+                android:layout_height="60dp"
+                android:text="Sửa"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/btnHuy"
+                android:layout_width="130dp"
+                android:layout_height="60dp"
+                android:layout_margin="20sp"
+                android:backgroundTint="@color/black"
+                android:text="Hủy"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
