@@ -69,4 +69,21 @@ public class SanPhamDao {
         int check= sqLiteDatabase.update("SANPHAM",contentValues,"masanpham = ?", new String[]{String.valueOf(sanPham.getMaloai())});
         return  check!=0;
     }
+
+    public int xoaSanPham(int masanpham) {
+        SQLiteDatabase sqLiteDatabase = dbHepler.getWritableDatabase();
+
+        // kiểm tra sự tồn tại của sản phẩm
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SANPHAM WHERE masanpham = ?", new String[]{String.valueOf(masanpham)});
+        if (cursor.getCount() > 0) {
+            // sản phẩm tồn tại, tiến hành xóa
+            int check = sqLiteDatabase.delete("SANPHAM", "masanpham = ?", new String[]{String.valueOf(masanpham)});
+            cursor.close();
+            return check > 0 ? 1 : -1;  // trả về 1 nếu xóa thành công, -1 nếu xóa thất bại
+        } else {
+            cursor.close();
+            return 0;  // trả về 0 nếu sản phẩm không tồn tại
+        }
+    }
+
 }

@@ -75,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
         filteredList = new ArrayList<>(list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerViewSanPham.setLayoutManager(linearLayoutManager);
-        sanPhamAdapter = new SanPhamAdapter(this, filteredList);
+        sanPhamAdapter = new SanPhamAdapter(this, filteredList,sanPhamDao);
         recyclerViewSanPham.setAdapter(sanPhamAdapter);
     }
 
