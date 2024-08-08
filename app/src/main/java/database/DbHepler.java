@@ -21,7 +21,11 @@ public class DbHepler extends SQLiteOpenHelper {
         db.execSQL(tSanPham);
         // Chèn dữ liệu mẫu vào SANPHAM
         db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia, hinhanh) VALUES('Chuối', 'Trái cây', '10.000', 'banana')");
-        db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia, hinhanh) VALUES('Rau xà lách', 'Rau củ', '5.000', 'rauxalach')");
+        db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia, hinhanh) VALUES('Rau xà lách', 'Rau củ', '8.000', 'rauxalach')");
+        db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia, hinhanh) VALUES('Táo', 'Trái cây', '7.000', 'apple')");
+        db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia, hinhanh) VALUES('Bông cải xanh', 'Rau củ', '12.000', 'broccoli')");
+        db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia, hinhanh) VALUES('Cà chua', 'Trái cây', '8.000', 'tomato')");
+        db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia, hinhanh) VALUES('Cam', 'Rau củ', '7.000', 'orange')");
 
 
         // Tạo bảng NGUOIDUNG

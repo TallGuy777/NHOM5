@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
+    <!-- Thanh menu trên cùng -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -19,15 +20,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    <ImageButton
-        android:id="@+id/btnHamberge"
-        android:layout_gravity="center"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitCenter"
-        android:background="@android:color/transparent"
-        android:src="@drawable/table_rows"
-        />
+
+        <!-- Nút menu -->
+        <ImageButton
+            android:id="@+id/btnHamberge"
+            android:layout_gravity="center"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
+            android:src="@drawable/table_rows"/>
+
+        <!-- Tiêu đề -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,8 +41,9 @@
             android:layout_gravity="center"
             android:textSize="25sp"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold"/>
+
+        <!-- Nút giỏ hàng -->
         <ImageButton
             android:id="@+id/btnGioHang"
             android:layout_gravity="center"
@@ -46,10 +51,10 @@
             android:layout_height="50dp"
             android:scaleType="fitCenter"
             android:background="@android:color/transparent"
-            android:src="@drawable/shopping"
-            />
+            android:src="@drawable/shopping"/>
     </LinearLayout>
 
+    <!-- Thanh tìm kiếm -->
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
@@ -61,42 +66,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/search"
-        ></ImageView>
+
+        <!-- Icon tìm kiếm -->
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/search"/>
+
+        <!-- Ô nhập tìm kiếm -->
         <EditText
             android:id="@+id/edtSearch"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Tìm kiếm"
             android:paddingStart="10sp"
-            android:textColor="@color/black"
-            ></EditText>
+            android:textColor="@color/black"/>
     </LinearLayout>
 
+    <!-- RecyclerView hiển thị danh sách sản phẩm -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerViewSanPham"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"/>
 
+    <!-- Nút thêm sản phẩm -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingAdd"
         android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/add"
         android:backgroundTint="#00BCD4"
-        android:layout_height="50dp"
         android:scaleType="fitCenter"
         android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
-        app:layout_constraintStart_toStartOf="parent"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+        app:layout_constraintStart_toStartOf="parent"/>
 
+    <!-- Thanh menu dưới cùng -->
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -105,9 +116,6 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
