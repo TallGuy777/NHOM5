@@ -121,6 +121,7 @@ public class HomeActivity extends AppCompatActivity {
         EditText tenSanPham = view.findViewById(R.id.edtTenSP);
         EditText loaiSanPham = view.findViewById(R.id.edtLoaitSP);
         EditText giaSanPham = view.findViewById(R.id.edtGiaSP);
+        EditText hinhSanPham = view.findViewById(R.id.edtHinhAnh);
         Button btnAdd = view.findViewById(R.id.addSP);
         Button btnCancle = view.findViewById(R.id.Cancle);
 
@@ -131,9 +132,10 @@ public class HomeActivity extends AppCompatActivity {
                 String tenSP = tenSanPham.getText().toString().trim();
                 String loaiSP = loaiSanPham.getText().toString().trim();
                 String giaSP = giaSanPham.getText().toString().trim();
+                String hinhSP = hinhSanPham.getText().toString().trim();
 
                 // Kiểm tra trường nhập liệu có bị trống không
-                if (tenSP.isEmpty() || loaiSP.isEmpty() || giaSP.isEmpty()) {
+                if (tenSP.isEmpty() || loaiSP.isEmpty() || giaSP.isEmpty()| hinhSP.isEmpty()) {
                     Toast.makeText(HomeActivity.this, "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -145,7 +147,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
 
                 // Thực hiện hành động thêm sản phẩm
-                boolean check = sanPhamDao.themSanPham(tenSP, loaiSP, giaSP);
+                boolean check = sanPhamDao.themSanPham(tenSP, loaiSP, giaSP,hinhSP);
                 if (check) {
                     Toast.makeText(HomeActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                     UpdateData(); // Cập nhật dữ liệu nếu cần

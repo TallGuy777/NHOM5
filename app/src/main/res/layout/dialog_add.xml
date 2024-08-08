@@ -79,6 +79,26 @@
             android:layout_gravity="center"
             android:background="@drawable/border"/>
 
+        <!-- Thêm trường nhập tên hình ảnh -->
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Tên hình ảnh"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/edtHinhAnh"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:hint="Ví dụ: image_name"
+            android:textColor="@color/black"
+            android:textColorHint="#6A6464"/>
+
         <LinearLayout
             android:gravity="center"
             android:layout_margin="20sp"

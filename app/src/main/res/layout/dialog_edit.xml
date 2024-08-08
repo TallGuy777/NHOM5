@@ -4,8 +4,7 @@
     android:orientation="vertical"
     android:background="@color/MauChuoi"
     android:layout_height="wrap_content"
-    android:layout_margin="20sp"
-    >
+    android:layout_margin="20sp">
 
     <TextView
         android:layout_width="match_parent"
@@ -14,14 +13,15 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="30sp"
-        ></TextView>
+        android:textSize="30sp"/>
+
     <LinearLayout
         android:padding="20sp"
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -30,6 +30,7 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="20sp"/>
+
         <EditText
             android:id="@+id/edtTenSP"
             android:textColorHint="#6A6464"
@@ -58,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/border"/>
+
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -65,7 +67,7 @@
             android:text="Giá Sản phẩm"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/edtGiaSP"
@@ -75,7 +77,27 @@
             android:background="@drawable/border"
             android:hint="vd: 15.000"
             android:textColor="@color/black"
-            android:textColorHint="#6A6464" />
+            android:textColorHint="#6A6464"/>
+
+        <!-- Thêm trường nhập tên hình ảnh -->
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Tên hình ảnh"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/edtHinhAnh"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:hint="Ví dụ: image_name"
+            android:textColor="@color/black"
+            android:textColorHint="#6A6464"/>
 
         <LinearLayout
             android:gravity="center"
@@ -83,6 +105,7 @@
             android:orientation="horizontal"
             android:layout_width="300dp"
             android:layout_height="100dp">
+
             <Button
                 android:backgroundTint="@color/black"
                 android:layout_margin="20sp"
@@ -103,7 +126,7 @@
                 android:text="Hủy"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

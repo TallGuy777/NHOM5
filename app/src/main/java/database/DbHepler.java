@@ -11,16 +11,18 @@ public class DbHepler extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Tạo bảng SANPHAM
+        // Tạo bảng SANPHAM với trường tên hình ảnh
         String tSanPham = "CREATE TABLE SANPHAM(" +
                 "masanpham INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "ten TEXT, " +
                 "tenloai TEXT," +
-                "gia TEXT)";
+                "gia TEXT," +
+                "hinhanh TEXT)";
         db.execSQL(tSanPham);
         // Chèn dữ liệu mẫu vào SANPHAM
-        db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia) VALUES('Chuối', 'Trái cây', '10.000')");
-        db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia) VALUES('Rau xà lách', 'Rau củ', '5.000')");
+        db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia, hinhanh) VALUES('Chuối', 'Trái cây', '10.000', 'banana')");
+        db.execSQL("INSERT INTO SANPHAM(ten, tenloai, gia, hinhanh) VALUES('Rau xà lách', 'Rau củ', '5.000', 'rauxalach')");
+
 
         // Tạo bảng NGUOIDUNG
         String tNguoiDung = "CREATE TABLE NGUOIDUNG(" +

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,10 +49,20 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvIDSanPham.setText("ID: " + list.get(position).getMaloai());
-        holder.tvTenSanPham.setText("Tên: " + list.get(position).getTen());
-        holder.tvTenLoaiSanPham.setText("Loại: " + list.get(position).getLoai());
-        holder.tvGiaSanPham.setText("Giá: " + list.get(position).getGia() + " VND");
+        SanPham sanPham = list.get(position);
+
+        holder.tvIDSanPham.setText("ID: " + sanPham.getMaloai());
+        holder.tvTenSanPham.setText("Tên: " + sanPham.getTen());
+        holder.tvTenLoaiSanPham.setText("Loại: " + sanPham.getLoai());
+        holder.tvGiaSanPham.setText("Giá: " + sanPham.getGia() + " VND");
+
+        // Hiển thị hình ảnh từ drawable dựa trên tên hình ảnh
+        int imageResId = context.getResources().getIdentifier(sanPham.getHinhAnh(), "drawable", context.getPackageName());
+        if (imageResId != 0) {
+            holder.imageViewLoaiSanPham.setImageResource(imageResId);
+        } else {
+            holder.imageViewLoaiSanPham.setImageResource(R.drawable.banana); // Hình ảnh mặc định nếu không tìm thấy
+        }
 
         // Điều chỉnh visibility của các nút dựa trên biến trạng thái
         if (isCaseOne) {
@@ -65,7 +76,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
         holder.ibEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialogUpdate(list.get(holder.getAdapterPosition()));
+                showDialogUpdate(sanPham);
             }
         });
 
@@ -74,12 +85,12 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Thông báo");
-                builder.setMessage("Bạn có muốn xóa " + list.get(holder.getAdapterPosition()).getTen() + " Không ?");
+                builder.setMessage("Bạn có muốn xóa " + sanPham.getTen() + " Không ?");
                 builder.setIcon(R.drawable.warning);
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        int check = sanPhamDao.xoaSanPham(list.get(holder.getAdapterPosition()).getMaloai());
+                        int check = sanPhamDao.xoaSanPham(sanPham.getMaloai());
                         switch (check) {
                             case -1:
                                 Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
@@ -114,7 +125,8 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvIDSanPham, tvTenSanPham, tvTenLoaiSanPham, tvGiaSanPham;
         ImageButton ibEdit, ibDelete;
-        LinearLayout linerAdmin,linerUser;
+        ImageView imageViewLoaiSanPham;
+        LinearLayout linerAdmin, linerUser;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -125,8 +137,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
             tvGiaSanPham = itemView.findViewById(R.id.tvGiaSP);
             ibEdit = itemView.findViewById(R.id.ibEdit);
             ibDelete = itemView.findViewById(R.id.ibDelete);
-            linerAdmin=itemView.findViewById(R.id.linerAdmin);
-            linerUser=itemView.findViewById(R.id.linerUser);
+            imageViewLoaiSanPham = itemView.findViewById(R.id.imageViewLoaiSanPham);
+            linerAdmin = itemView.findViewById(R.id.linerAdmin);
+            linerUser = itemView.findViewById(R.id.linerUser);
         }
     }
 
@@ -142,8 +155,16 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
         EditText edtTenSP = view.findViewById(R.id.edtTenSP);
         EditText edtLoai = view.findViewById(R.id.edtLoai);
         EditText edtGiaSP = view.findViewById(R.id.edtGiaSP);
+        EditText edtHinhAnh = view.findViewById(R.id.edtHinhAnh); // Thêm dòng này
+
         Button btnEdit = view.findViewById(R.id.btnEdit);
         Button btnHuy = view.findViewById(R.id.btnHuy);
+
+        // Điền thông tin hiện tại vào các trường EditText
+        edtTenSP.setText(sanPham.getTen());
+        edtLoai.setText(sanPham.getLoai());
+        edtGiaSP.setText(sanPham.getGia());
+        edtHinhAnh.setText(sanPham.getHinhAnh()); // Hiển thị tên hình ảnh hiện tại
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,17 +172,31 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
                 String tenSP = edtTenSP.getText().toString();
                 String loaiSP = edtLoai.getText().toString();
                 String giaSP = edtGiaSP.getText().toString();
-                SanPham sanphamUpdate = new SanPham(sanPham.getMaloai(), tenSP, loaiSP, giaSP);
+                String hinhAnh = edtHinhAnh.getText().toString(); // Lấy tên hình ảnh từ EditText
+
+                if (hinhAnh.isEmpty()) {
+                    hinhAnh = sanPham.getHinhAnh(); // Nếu không có giá trị mới, giữ giá trị cũ
+                }
+
+                SanPham sanphamUpdate = new SanPham(sanPham.getMaloai(), tenSP, loaiSP, giaSP, hinhAnh);
                 boolean check = sanPhamDao.suaSanPham(sanphamUpdate);
                 if (check) {
                     Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                     loadData();
                     alertDialog.dismiss();
                 } else {
-                    Toast.makeText(context, "Cập nhật không công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Cập nhật không thành công", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +208,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
 
     private void loadData() {
         list.clear();
-        list = sanPhamDao.getDSloaiSach();
+        list.addAll(sanPhamDao.getDSloaiSach());  // Thay đổi từ list = sanPhamDao.getDSloaiSach(); thành list.addAll()
         notifyDataSetChanged();
     }
 }
