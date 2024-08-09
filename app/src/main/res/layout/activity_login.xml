@@ -55,6 +55,7 @@
         <EditText
             android:layout_gravity="center"
             android:id="@+id/edtEmail"
+            android:textColorHint="@color/HintColor"
             android:paddingStart="10dp"
             android:textColor="@color/black"
             android:background="@drawable/border"
@@ -69,6 +70,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="30sp"
+            android:textColorHint="@color/HintColor"
             android:background="@drawable/border"
             android:hint="Mật khẩu"
             android:paddingStart="10dp"
